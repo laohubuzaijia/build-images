@@ -63,7 +63,7 @@ build_script:
 - git version
 
 # Restart VM
-- ps: Start-Sleep -s 5; Restart-Computer
+- ps: Start-Sleep -s 5; Restart-Computer -Force
 - ps: Start-Sleep -s 5
 
 - appveyor version
