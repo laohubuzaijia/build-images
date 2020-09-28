@@ -26,6 +26,10 @@ git config --global core.autocrlf input
 git config --system --unset credential.helper
 git --version
 
+# add mapping for .sh files
+cmd /c ftype sh_auto_file="C:\msys64\usr\bin\bash.exe" "`"%L`"" %* | out-null
+cmd /c assoc .sh=sh_auto_file
+
 Write-Host "Git installed" -ForegroundColor Green
 
 # CHECK!!!!!
