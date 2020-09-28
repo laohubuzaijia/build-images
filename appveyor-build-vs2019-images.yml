@@ -67,4 +67,6 @@ build_script:
 - ps: Start-Sleep -s 5
 
 - appveyor version
+- git version
+- where ssh
 - ps: .\cleanup_windows.ps1
