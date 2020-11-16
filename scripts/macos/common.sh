@@ -376,7 +376,7 @@ function install_pythons(){
     LDFLAGS="-L${SSL_PATH}/lib"
 
     command -v virtualenv || install_virtualenv
-    declare PY_VERSIONS=( "3.8.3" "2.6.9" "2.7.18" "3.4.10" "3.5.9" "3.6.10" "3.7.7" "3.9.0b1" )
+    declare PY_VERSIONS=( "3.8.6" "2.6.9" "2.7.18" "3.4.10" "3.5.9" "3.6.12" "3.7.9" "3.9.0" )
     for i in "${PY_VERSIONS[@]}"; do
         VENV_PATH=${HOME}/venv${i%%[abrcf]*}
         VENV_MINOR_PATH=${HOME}/venv${i%.*}
@@ -428,33 +428,6 @@ function preheat_dotnet_sdks() {
         popd &&
         rm -rf "${TMP_DIR}"
     done
-}
-
-function install_dotnetv5_preview() {
-    echo "[INFO] Running install_dotnetv5_preview..."
-    # this must be executed as appveyor user
-    if [ "$(whoami)" != "${USER_NAME}" ]; then
-        echo "This script must be run as '${USER_NAME}'. Current user is '$(whoami)'" 1>&2
-        return 1
-    fi
-    local DOTNET5_SDK_URL
-    if [[ -z "${1-}" || "${#1}" = "0" ]]; then
-        DOTNET5_SDK_URL="https://aka.ms/dotnet/net5/preview5/Sdk/dotnet-sdk-osx-x64.tar.gz"
-    else
-        DOTNET5_SDK_URL=$1
-    fi
-    local DOTNET5_SDK_TAR=${DOTNET5_SDK_URL##*/}
-
-    local TMP_DIR
-    TMP_DIR=$(mktemp -d)
-    pushd -- "${TMP_DIR}"
-
-    curl -fsSL -O "${DOTNET5_SDK_URL}" &&
-    sudo tar -zxf "${DOTNET5_SDK_TAR}" -C "/usr/local/share/dotnet" ||
-        { echo "[ERROR] Cannot download and unpack .NET SDK 5.0 preview from url '${DOTNET5_SDK_URL}'." 1>&2; popd; return 20; }
-
-    popd &&
-    rm -rf "${TMP_DIR}"
 }
 
 function install_dotnets() {
