@@ -4,8 +4,8 @@ environment:
 # Hyper-V
 # =======
 
-  - job_name: VS 2019 on Hyper-V
-    APPVEYOR_BUILD_WORKER_IMAGE: vs2019-master
+  # - job_name: VS 2019 on Hyper-V
+  #   APPVEYOR_BUILD_WORKER_IMAGE: vs2019-master
     #APPVEYOR_BAKE_IMAGE: vs2019-master
 
 # Azure
@@ -25,18 +25,18 @@ environment:
 # Azure - Preview
 # ===============
 
-  - job_name: VS 2019 Preview on Azure West US
-    APPVEYOR_BUILD_WORKER_IMAGE: vs2019-preview-master-azure-westus
-    APPVEYOR_BAKE_IMAGE: vs2019-preview-master-azure-westus
-    install_vs2019_preview: true
+  # - job_name: VS 2019 Preview on Azure West US
+  #   APPVEYOR_BUILD_WORKER_IMAGE: vs2019-preview-master-azure-westus
+  #   #APPVEYOR_BAKE_IMAGE: vs2019-preview-master-azure-westus
+  #   install_vs2019_preview: true
 
 # Hyper-V - Preview
 # ===============
 
-  - job_name: VS 2019 Preview on Hyper-V
-    APPVEYOR_BUILD_WORKER_IMAGE: vs2019-preview-master
-    APPVEYOR_BAKE_IMAGE: vs2019-preview-master
-    install_vs2019_preview: true
+  # - job_name: VS 2019 Preview on Hyper-V
+  #   APPVEYOR_BUILD_WORKER_IMAGE: vs2019-preview-master
+  #   #APPVEYOR_BAKE_IMAGE: vs2019-preview-master
+  #   install_vs2019_preview: true
 
 init:
   - appveyor version
@@ -58,8 +58,7 @@ test: off
 
 build_script:
 
-- ps: .\uninstall_git.ps1
-- ps: .\install_git.ps1
+- ps: .\install_nuget.ps1
 - git version
 
 # Restart VM
@@ -67,6 +66,4 @@ build_script:
 - ps: Start-Sleep -s 5
 
 - appveyor version
-- git version
-- where ssh
 - ps: .\cleanup_windows.ps1
